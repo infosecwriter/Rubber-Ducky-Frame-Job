@@ -1,6 +1,6 @@
 REM Calling this the rubber ducky frame job.  This adds fake information into Windows Registry areas forensic
 REM analysts use to track internet usage.
-REM Author: Jeremy Martin - jeremy@informationwarfarecenter.com
+REM Author: Jeremy Martin - jeremy@informationwarfarecenter.com (2013)
 REM Class: Anti Forensics
 REM version 0.1.3
 DELAY 1000
